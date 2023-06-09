@@ -15,5 +15,6 @@ protected:
     Colorable();
     virtual ~Colorable() = 0;
 
+public:
     virtual void setBackgroundColor(const Color::Color& color) = 0;
 };
