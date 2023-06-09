@@ -22,4 +22,4 @@ fi
 
 export ASAN_OPTIONS=halt_on_error=0
 make --no-print-directory resanitize
-$1/$1 ${@:2}
+./$binary ${@:1}
