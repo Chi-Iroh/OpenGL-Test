@@ -5,7 +5,7 @@
 
 namespace GLUtils {
     // shouldn't be called before GLEW initialization, it will return 0
-    GLint glGetMajorVersion() {
+    GLint getMajorVersion() {
         GLint major{};
 
         glGetIntegerv(GL_MAJOR_VERSION, &major);
@@ -13,7 +13,7 @@ namespace GLUtils {
     }
 
     // shouldn't be called before GLEW initialization, it will return 0
-    GLint glGetMinorVersion() {
+    GLint getMinorVersion() {
         GLint minor{};
 
         glGetIntegerv(GL_MINOR_VERSION, &minor);

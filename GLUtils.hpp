@@ -4,10 +4,10 @@
 
 namespace GLUtils {
     // shouldn't be called before GLEW initialization, it will return 0
-    GLint glGetMajorVersion();
+    GLint getMajorVersion();
 
     // shouldn't be called before GLEW initialization, it will return 0
-    GLint glGetMinorVersion();
+    GLint getMinorVersion();
 
     void errorCallback(int error, const char *description);
 

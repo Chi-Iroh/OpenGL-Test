@@ -30,7 +30,7 @@ Window initWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
-    Window window{ Window(1'000, 1'000, "Hello, World !") };
+    Window window{ 1'000, 1'000, "Hello, World !" };
     if (!window) {
         std::exit(ERROR_CODE);
     }
@@ -44,7 +44,7 @@ Window initWindow() {
 void createSmallerTriangle(Triangle& triangle) {
     static std::array<VertexType, 3> vertices{
         Coords::windowToGLCoordinates({ 500, 1'000 }, { 1'000, 1'000}),
-        Coords::windowToGLCoordinates({ 0, 0}, { 1'000, 1'000}),
+        Coords::windowToGLCoordinates({ 0, 0 }, { 1'000, 1'000}),
         Coords::windowToGLCoordinates({ 1'000, 0 }, { 1'000, 1'000}),
     };
 
