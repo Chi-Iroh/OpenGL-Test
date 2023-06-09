@@ -60,7 +60,6 @@ void createSmallerTriangle(Triangle& triangle) {
 int main() {
     int returnCode{ 0 };
 
-    using namespace std::string_literals;
     try {
         Window window{ initWindow() };
         std::array<Triangle, 100> triangles{};
