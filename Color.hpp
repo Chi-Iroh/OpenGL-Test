@@ -2,7 +2,7 @@
 #include <cstdint>
 
 namespace Color::RGB {
-    constexpr uint32_t BLACK{};
+    constexpr uint32_t BLACK{ 0x00'00'00 };
     constexpr uint32_t WHITE{ 0xFF'FF'FF };
     constexpr uint32_t RED{ 0xFF'00'00 };
     constexpr uint32_t GREEN{ 0x00'FF'00 };
