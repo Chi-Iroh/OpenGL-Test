@@ -68,11 +68,14 @@ display_info:
 	@echo LDFLAGS : $(LD_PRELOAD) $(LDFLAGS)
 	@echo -------------
 
-$(NAME): check_version display_info $(OBJ)
+.PHONY: remove_old_analyzer
+remove_old_analyzer:
 	@if [[ "$(ANALYZER)" != "" ]]; then		\
 		rm -f ./analyzer.log;				\
 		echo "Removing old analyzer log.";	\
 	fi
+
+$(NAME): check_version display_info remove_old_analyzer $(OBJ)
 	@$(CXX) $(OBJ) $(LD_PRELOAD) $(LDFLAGS) -o $(NAME)
 
 %.o: %.cpp
