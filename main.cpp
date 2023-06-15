@@ -17,7 +17,7 @@
 
 constexpr int ERROR_CODE{ 1 };
 
-Window initWindow() {
+void initGLFW() {
     glfwSetErrorCallback(GLUtils::errorCallback);
     if (glfwInit() == GLFW_FALSE) {
         std::exit(ERROR_CODE);
@@ -29,16 +29,6 @@ Window initWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-
-    Window window{ 1'000, 1'000, "Hello, World !" };
-    if (!window) {
-        std::exit(ERROR_CODE);
-    }
-    if (glewInit() != GLEW_OK) {
-        glfwTerminate();
-        std::exit(ERROR_CODE);
-    }
-    return window;
 }
 
 void createSmallerTriangle(Triangle& triangle) {
@@ -61,9 +51,9 @@ int main() {
     int returnCode{ 0 };
 
     try {
-        Window window{ initWindow() };
+        initGLFW();
+        Window window{ 1'000, 1'000, "Hello, World !" };
         std::array<Triangle, 100> triangles{};
-
         for (Triangle& triangle : triangles) {
             createSmallerTriangle(triangle);
         }

@@ -3,6 +3,16 @@
 #include "GLUtils.hpp"
 #include "Window.hpp"
 
+void Window::initGLEW() {
+    static bool has_init_GLEW{};
+
+    if (!has_init_GLEW) {
+        if (glewInit() != GLEW_OK) {
+            throw GLException("GLEW initialization failed !");
+        }
+    }
+}
+
 Window::Window(int width, int height, const std::string& title, bool doesHandleResize, bool isMainGLwindow) :
     width{ width },
     height{ height },
@@ -18,6 +28,7 @@ Window::Window(int width, int height, const std::string& title, bool doesHandleR
         glfwMakeContextCurrent(window);
     }
     glfwSetFramebufferSizeCallback(window, doesHandleResize ? GLUtils::resizeCallback : GLUtils::resizeDummyCallback);
+    initGLEW();
 }
 
 Window::Window(const Window& window) : Window(

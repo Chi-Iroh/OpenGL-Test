@@ -15,6 +15,7 @@ class Window {
     GLFWwindow* window{};
 
     void updateSize();
+    void initGLEW();
 
 public:
     explicit Window(int width = 0, int height = 0, const std::string& title = "", bool handleResize = true, bool isMainGLwindow = true);
