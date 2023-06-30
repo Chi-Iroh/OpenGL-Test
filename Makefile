@@ -1,10 +1,12 @@
-SRC 	=				\
-DrawTypes/Colorable.cpp	\
-main.cpp				\
-GLException.cpp			\
-GLUtils.cpp 			\
-Shader.cpp 				\
-Triangle.cpp			\
+SRC 	=					\
+DrawTypes/Colorable.cpp		\
+main.cpp					\
+CommandLineArguments.cpp	\
+GLDebug.cpp					\
+GLException.cpp				\
+GLUtils.cpp 				\
+Shader.cpp 					\
+Triangle.cpp				\
 Window.cpp
 
 OBJ =   $(SRC:.cpp=.o)

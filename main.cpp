@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include "CommandLineArguments.hpp"
 #include "Coords.hpp"
 #include "GLException.hpp"
 #include "GLUtils.hpp"
@@ -17,7 +18,7 @@
 
 constexpr int ERROR_CODE{ 1 };
 
-void initGLFW() {
+void initGLFW(int argc, char* argv[]) {
     glfwSetErrorCallback(GLUtils::errorCallback);
     if (glfwInit() == GLFW_FALSE) {
         std::exit(ERROR_CODE);
@@ -29,13 +30,14 @@ void initGLFW() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+    GLUtils::args = CommandLineArguments(argc, argv);
 }
 
 void createSmallerTriangle(Triangle& triangle) {
     static std::array<VertexType, 3> vertices{
-        Coords::windowToGLCoordinates({ 500, 1'000 }, { 1'000, 1'000}),
-        Coords::windowToGLCoordinates({ 0, 0 }, { 1'000, 1'000}),
-        Coords::windowToGLCoordinates({ 1'000, 0 }, { 1'000, 1'000}),
+        Coords::windowToGLCoordinates({ 500, 1'000 }, { 1'000, 1'000 }),
+        Coords::windowToGLCoordinates({ 0, 0 }, { 1'000, 1'000 }),
+        Coords::windowToGLCoordinates({ 1'000, 0 }, { 1'000, 1'000 }),
     };
 
     triangle.setVertices(vertices);
@@ -47,11 +49,11 @@ void createSmallerTriangle(Triangle& triangle) {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     int returnCode{ 0 };
 
     try {
-        initGLFW();
+        initGLFW(argc, argv);
         Window window{ 1'000, 1'000, "Hello, World !" };
         std::array<Triangle, 100> triangles{};
         for (Triangle& triangle : triangles) {

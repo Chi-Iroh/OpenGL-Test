@@ -11,6 +11,10 @@ void Window::initGLEW() {
             throw GLException("GLEW initialization failed !");
         }
     }
+    if (GLUtils::args.has_option("--debug")) {
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(GLUtils::debugCallback, nullptr);
+    }
 }
 
 Window::Window(int width, int height, const std::string& title, bool doesHandleResize, bool isMainGLwindow) :

@@ -1,8 +1,11 @@
 #pragma once
+#include "CommandLineArguments.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 namespace GLUtils {
+    extern CommandLineArguments args;
+
     // shouldn't be called before GLEW initialization, it will return 0
     GLint getMajorVersion();
 
@@ -12,6 +15,8 @@ namespace GLUtils {
     void errorCallback(int error, const char *description);
 
     void resizeCallback([[maybe_unused]] GLFWwindow* window, int newWidth, int newHeight);
+
+    void debugCallback(GLenum source, GLenum type, GLenum id, GLenum severity, [[maybe_unused]] GLsizei length, const GLchar* message, [[maybe_unused]] const void* userParam);
 
     constexpr void resizeDummyCallback(GLFWwindow*, int, int) noexcept {};
 
