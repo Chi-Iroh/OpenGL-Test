@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <format>
 #include <stdexcept>
-#include "CommandLineArguments.hpp"
+#include "../include/CommandLineArguments.hpp"
 
 CommandLineArguments::CommandLineArguments(int argc, char* argv[]) {
     if (argc <= 0) {

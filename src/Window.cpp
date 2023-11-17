@@ -1,7 +1,7 @@
 #include <format>
-#include "GLException.hpp"
-#include "GLUtils.hpp"
-#include "Window.hpp"
+#include "../include/GLException.hpp"
+#include "../include/GLUtils.hpp"
+#include "../include/Window.hpp"
 
 void Window::initGLEW() {
     static bool has_init_GLEW{};
@@ -29,6 +29,7 @@ Window::Window(int width, int height, const std::string& title, bool doesHandleR
         throw GLException("Failed to allocate window.");
     }
     if (isMainGLwindow) {
+        glViewport(0, 0, width, height);
         glfwMakeContextCurrent(window);
     }
     glfwSetFramebufferSizeCallback(window, doesHandleResize ? GLUtils::resizeCallback : GLUtils::resizeDummyCallback);
@@ -67,6 +68,10 @@ bool Window::isOpen() {
     return !glfwWindowShouldClose(window);
 }
 
+void Window::close() {
+    glfwSetWindowShouldClose(window, true);
+}
+
 void Window::updateSize() {
     glfwGetWindowSize(window, &width, &height);
 }
@@ -80,6 +85,10 @@ GLFWwindow* Window::get() noexcept {
     return window;
 }
 
+const GLFWwindow* Window::get() const noexcept {
+    return window;
+}
+
 Window::operator bool() noexcept {
-    return static_cast<bool>(window);
+    return window != nullptr;
 }

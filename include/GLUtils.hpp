@@ -1,7 +1,8 @@
 #pragma once
-#include "CommandLineArguments.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "CommandLineArguments.hpp"
+#include "Events/Keyboard.hpp"
 
 namespace GLUtils {
     extern CommandLineArguments args;

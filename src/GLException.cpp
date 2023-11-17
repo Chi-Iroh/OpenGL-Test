@@ -1,4 +1,4 @@
-#include "GLException.hpp"
+#include "../include/GLException.hpp"
 
 GLException::GLException(const std::string& message) {
     this->message = message;

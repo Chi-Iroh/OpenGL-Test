@@ -1,5 +1,5 @@
 #include <format>
-#include "Shader.hpp"
+#include "../include/Shader.hpp"
 
 namespace Shader {
     std::string generateFragmentColor(const Color::Color& color) {

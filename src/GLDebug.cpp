@@ -1,5 +1,5 @@
 #include <format>
-#include "GLDebug.hpp"
+#include "../include/GLDebug.hpp"
 
 std::string GLDebug::getMessageSource(GLenum source) {
     switch (source) {

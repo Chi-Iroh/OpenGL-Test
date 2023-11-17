@@ -2,9 +2,9 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "CommandLineArguments.hpp"
-#include "GLDebug.hpp"
-#include "GLException.hpp"
+#include "../include/CommandLineArguments.hpp"
+#include "../include/GLDebug.hpp"
+#include "../include/GLException.hpp"
 
 namespace GLUtils {
     CommandLineArguments args{};

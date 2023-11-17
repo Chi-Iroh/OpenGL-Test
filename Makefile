@@ -1,15 +1,16 @@
-SRC 	=					\
-DrawTypes/Colorable.cpp		\
-main.cpp					\
-CommandLineArguments.cpp	\
-GLDebug.cpp					\
-GLException.cpp				\
-GLUtils.cpp 				\
-Shader.cpp 					\
-Triangle.cpp				\
-Window.cpp
+SRC 	=						\
+src/Colorable.cpp				\
+src/main.cpp					\
+src/CommandLineArguments.cpp	\
+src/GLDebug.cpp					\
+src/GLException.cpp				\
+src/GLUtils.cpp 				\
+src/Shader.cpp 					\
+src/Triangle.cpp				\
+src/Window.cpp					\
+src/Keyboard.cpp
 
-OBJ =   $(SRC:.cpp=.o)
+OBJ =   $(patsubst src/%,obj/%,$(SRC:.cpp=.o))
 
 CXX  =   g++
 DEBUG   =   -ggdb3 -DDEBUG_MODE
@@ -80,7 +81,7 @@ remove_old_analyzer:
 $(NAME): check_version display_info remove_old_analyzer $(OBJ)
 	@$(CXX) $(OBJ) $(LD_PRELOAD) $(LDFLAGS) -o $(NAME)
 
-%.o: %.cpp
+obj/%.o: src/%.cpp
 	@if [[ "$(ANALYZER)" != "" ]]; then						\
 		$(CXX) -c $(CXXFLAGS) $< -o $@ 2>> ./analyzer.log;	\
 	else													\

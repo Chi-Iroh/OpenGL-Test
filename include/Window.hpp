@@ -27,9 +27,11 @@ public:
     void display();
 
     bool isOpen();
+    void close();
 
     Vector2<int> size();
     GLFWwindow* get() noexcept;
+    const GLFWwindow* get() const noexcept;
 
     operator bool() noexcept;
 };

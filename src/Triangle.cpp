@@ -2,10 +2,10 @@
 #include <string_view>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include "GLException.hpp"
-#include "GLUtils.hpp"
-#include "Shader.hpp"
-#include "Triangle.hpp"
+#include "../include/GLException.hpp"
+#include "../include/GLUtils.hpp"
+#include "../include/Shader.hpp"
+#include "../include/Triangle.hpp"
 
 Triangle::Triangle() {}
 

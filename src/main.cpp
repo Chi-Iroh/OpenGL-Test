@@ -8,13 +8,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include "CommandLineArguments.hpp"
-#include "Coords.hpp"
-#include "GLException.hpp"
-#include "GLUtils.hpp"
-#include "Random.hpp"
-#include "Triangle.hpp"
-#include "Window.hpp"
+#include "../include/CommandLineArguments.hpp"
+#include "../include/Coords.hpp"
+#include "../include/GLException.hpp"
+#include "../include/GLUtils.hpp"
+#include "../include/Random.hpp"
+#include "../include/Triangle.hpp"
+#include "../include/Window.hpp"
 
 constexpr int ERROR_CODE{ 1 };
 
@@ -67,6 +67,9 @@ int main(int argc, char* argv[]) {
             }
             window.display();
             glfwPollEvents();
+            if (glfwGetKey(window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+                window.close();
+            }
         }
     } catch (GLException& glException) {
         std::cerr << "GL-related exception occured :" << std::endl << '\t' << glException.what() << std::endl;

@@ -1,4 +1,4 @@
-#include "Colorable.hpp"
+#include "../include/DrawTypes/Colorable.hpp"
 
 Colorable::Colorable() : shaderProgram{ glCreateProgram() } {
     if (shaderProgram == 0) {

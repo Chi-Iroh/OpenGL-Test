@@ -6,8 +6,11 @@
 #include "Vector.hpp"
 
 class Triangle : public Drawable, public Colorable {
+private:
     using VerticesType = std::array<VertexType, 3>;
     using GLVerticesType = std::conditional_t<sizeof(std::array<glm::vec3, 3>) == sizeof(glm::vec3[3]), std::array<glm::vec3, 3>, glm::vec3[3]>;
+
+    friend class Square;
 
     GLVerticesType GLVertices{};
     void draw(GLFWwindow* window) const override;
