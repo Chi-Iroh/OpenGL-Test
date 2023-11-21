@@ -1,12 +1,13 @@
+#include <functional> // std::hash
 #include <unordered_map>
 #include "../include/Events/Keyboard.hpp"
-
-constexpr std::size_t __keyCount{ static_cast<std::size_t>(Key::__Count) };
+#include "../include/Window.hpp"
 
 class KeyHash {
+    using KeyType = std::underlying_type_t<Key>;
 public:
-    constexpr std::size_t operator()(Key key) const {
-        return std::hash<std::size_t>{}(static_cast<std::size_t>(key));
+    constexpr KeyType operator()(Key key) const {
+        return std::hash<KeyType>{}(static_cast<KeyType>(key));
     }
 };
 
@@ -17,7 +18,7 @@ enum class KeyState {
 };
 
 static std::unordered_map<Key, KeyState, KeyHash> __keysState{
-    { Key::Unknown, KeyState::Released },
+    // { Key::Unknown, KeyState::Released }, // error when checking if pressed with glfwGetKey
     { Key::Space, KeyState::Released },
     { Key::Apostrophe, KeyState::Released },
     // Equivalent to Key::Apostrophe, left in comment for clarity
@@ -164,22 +165,22 @@ static std::unordered_map<Key, KeyState, KeyHash> __keysState{
     { Key::Menu, KeyState::Released }
 };
 
-std::optional<KeyEvent> getPressedKeys(Window& window) {
-    KeyEvent event{};
-    const auto glfwWindow{ window.get() };
+std::optional<Event> Window::pollKeyEvent() const {
+    Event event{};
 
     for (auto& keyState : __keysState) {
-        const bool isKeyPressed{ glfwGetKey(glfwWindow, static_cast<int>(keyState.first)) == GLFW_PRESS };
+        const bool isKeyPressed{ glfwGetKey(window, static_cast<int>(keyState.first)) == GLFW_PRESS };
         if (isKeyPressed && keyState.second == KeyState::Released) {
-            event.pressedKeys.push_back(keyState.first);
+            event.key.pressedKeys.push_back(keyState.first);
         } else if (isKeyPressed && keyState.second != KeyState::Released) {
-            event.heldDownKeys.push_back(keyState.first);
+            event.key.heldDownKeys.push_back(keyState.first);
         } else if (!isKeyPressed && keyState.second == KeyState::Pressed) {
-            event.releasedKeys.push_back(keyState.first);
+            event.key.releasedKeys.push_back(keyState.first);
         }
     }
-    if (event.pressedKeys.empty() && event.heldDownKeys.empty() && event.releasedKeys.empty()) {
+    if (event.key.pressedKeys.empty() && event.key.heldDownKeys.empty() && event.key.releasedKeys.empty()) {
         return std::nullopt;
     }
+    event.type = EventType::KeyEvent;
     return event;
 }

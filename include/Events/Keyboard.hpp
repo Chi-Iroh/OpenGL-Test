@@ -2,7 +2,6 @@
 #include <optional>
 #include <vector>
 #include <GLFW/glfw3.h>
-#include "../Window.hpp"
 
 enum class Key {
     Unknown = GLFW_KEY_UNKNOWN,
@@ -196,10 +195,7 @@ enum class Key {
     RightControl = GLFW_KEY_RIGHT_CONTROL,
     RightAlt = GLFW_KEY_RIGHT_ALT,
     RightSuper = GLFW_KEY_RIGHT_SUPER,
-    Menu = GLFW_KEY_MENU,
-
-    // Internal use only
-    __Count
+    Menu = GLFW_KEY_MENU
 };
 
 struct KeyEvent {
@@ -207,5 +203,3 @@ struct KeyEvent {
     std::vector<Key> heldDownKeys{};
     std::vector<Key> releasedKeys{};
 };
-
-std::optional<KeyEvent> getPressedKeys(Window& window);

@@ -2,12 +2,12 @@
 #include "Events/Keyboard.hpp"
 
 enum class EventType {
-    KeyPressedOrReleased
+    NoEvent,
+    KeyEvent
 };
 
+// note: cannot put all events into an enum, because keyEvent has std::vectors which have non-trivial destructors
 struct Event {
-    EventType type;
-    union {
-        KeyEvent keyEvent;
-    } event;
+    EventType type{ EventType::NoEvent };
+    KeyEvent key;
 };

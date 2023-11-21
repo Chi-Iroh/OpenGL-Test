@@ -26,7 +26,7 @@ WIP_STANDARD_MODE=NO_WIP_STANDARD
 CXX_VERSION_ERROR	=	$(shell ./c++_latest_version.sh $(CXX) $(WIP_STANDARD_MODE) 2>&1)
 CXX_VERSION	=	$(shell ./c++_latest_version.sh $(CXX) $(WIP_STANDARD_MODE) 2> /dev/null)
 
-CXXFLAGS  +=  -Wall -Wextra -pedantic -fsigned-char -funsigned-bitfields -Wno-unused-parameter $(CXX_VERSION)
+CXXFLAGS  +=  -Wall -Wextra -pedantic -fsigned-char -funsigned-bitfields -Wno-unused-parameter -fconcepts-diagnostics-depth=2 $(CXX_VERSION)
 LDFLAGS	+=	-lGL -lglfw -lGLEW
 LD_PRELOAD	=
 

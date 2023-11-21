@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <cctype>
 #include <chrono>
 #include <format>
 #include <iostream>
@@ -14,6 +16,7 @@
 #include "../include/GLUtils.hpp"
 #include "../include/Random.hpp"
 #include "../include/Triangle.hpp"
+#include "../include/Utils.hpp"
 #include "../include/Window.hpp"
 
 constexpr int ERROR_CODE{ 1 };
@@ -49,6 +52,36 @@ void createSmallerTriangle(Triangle& triangle) {
     }
 }
 
+void handleEvent(Window& window, Event& event) {
+    if (event.type == EventType::KeyEvent) {
+        constexpr std::array keyTypes{
+            "pressed",
+            "held",
+            "released"
+        };
+        const std::array<std::reference_wrapper<std::vector<Key>>, 3> keyArrays{
+            event.key.pressedKeys,
+            event.key.heldDownKeys,
+            event.key.releasedKeys
+        };
+
+        for (std::size_t i = 0; const auto& keyArray : keyArrays) {
+            for (const Key& key : keyArray.get()) {
+                const int keycode{ static_cast<int>(key) };
+                if (std::isprint(keycode)) {
+                    std::cout << static_cast<unsigned char>(keycode) << ' ';
+                } else {
+                    std::cout << "A non-printable char ";
+                }
+                std::cout << std::format("is {}.", keyTypes[i]) << std::endl;
+            }
+        }
+        if (containerHas(event.key.pressedKeys, Key::Escape)) {
+            window.close();
+        }
+    }
+}
+
 int main(int argc, char* argv[]) {
     int returnCode{ 0 };
 
@@ -60,15 +93,15 @@ int main(int argc, char* argv[]) {
             createSmallerTriangle(triangle);
         }
 
+        Event event{};
         while (window.isOpen()) {
             window.clear(Color::CYAN);
             for (const Triangle& triangle : triangles) {
                 window.draw(triangle);
             }
             window.display();
-            glfwPollEvents();
-            if (glfwGetKey(window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-                window.close();
+            while (window.pollEvent(event)) {
+                handleEvent(window, event);
             }
         }
     } catch (GLException& glException) {

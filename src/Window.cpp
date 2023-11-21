@@ -1,4 +1,5 @@
 #include <format>
+#include <functional>
 #include "../include/GLException.hpp"
 #include "../include/GLUtils.hpp"
 #include "../include/Window.hpp"
@@ -87,6 +88,23 @@ GLFWwindow* Window::get() noexcept {
 
 const GLFWwindow* Window::get() const noexcept {
     return window;
+}
+
+bool Window::pollEvent(Event& event) const {
+    static const std::array eventPolls{
+        [this](){ return this->pollKeyEvent(); }
+    };
+    std::optional<Event> optEvent{};
+
+    glfwPollEvents();
+    for (const auto& eventPoll : eventPolls) {
+        optEvent = eventPoll();
+        if (optEvent.has_value()) {
+            event = optEvent.value();
+            return true;
+        }
+    }
+    return false;
 }
 
 Window::operator bool() noexcept {

@@ -40,7 +40,6 @@ public:
     }
 
     constexpr Vector2<T>& operator++(PREFIX_INCREMENTATION) noexcept {
-        // prefix incrementation
         x++;
         y++;
         return *this;
@@ -84,7 +83,6 @@ public:
     }
 
     constexpr Vector2<T>& operator--(PREFIX_DECREMENTATION) noexcept {
-        // prefix incrementation
         x--;
         y--;
         return *this;
