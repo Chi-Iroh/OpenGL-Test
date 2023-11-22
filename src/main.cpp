@@ -65,6 +65,9 @@ void handleEvent(Window& window, Event& event) {
             event.key.releasedKeys
         };
 
+        if (containerHas(event.key.pressedKeys, Key::Escape)) {
+            window.close();
+        }
         for (std::size_t i = 0; const auto& keyArray : keyArrays) {
             for (const Key& key : keyArray.get()) {
                 const int keycode{ static_cast<int>(key) };
@@ -75,9 +78,6 @@ void handleEvent(Window& window, Event& event) {
                 }
                 std::cout << std::format("is {}.", keyTypes[i]) << std::endl;
             }
-        }
-        if (containerHas(event.key.pressedKeys, Key::Escape)) {
-            window.close();
         }
     }
 }
