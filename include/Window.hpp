@@ -36,9 +36,8 @@ public:
 
     Vector2<int> size();
     GLFWwindow* get() noexcept;
-    const GLFWwindow* get() const noexcept;
 
-    bool pollEvent(Event& event) const;
+    bool pollEvent(Event& event);
 
     operator bool() noexcept;
 };

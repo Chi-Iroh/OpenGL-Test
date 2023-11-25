@@ -86,11 +86,7 @@ GLFWwindow* Window::get() noexcept {
     return window;
 }
 
-const GLFWwindow* Window::get() const noexcept {
-    return window;
-}
-
-bool Window::pollEvent(Event& event) const {
+bool Window::pollEvent(Event& event) {
     static const std::array eventPolls{
         [this](){ return this->pollKeyEvent(); }
     };
