@@ -83,6 +83,7 @@ end_time:
 link_to_binary: init_time $(NAME) end_time
 
 obj/%.o: src/%.cpp
+	@echo "$< -> $@"
 	@if [[ "$(ANALYZER)" != "" ]]; then						\
 		$(CXX) -c $(CXXFLAGS) $< -o $@ 2>> ./analyzer.log;	\
 	else													\
