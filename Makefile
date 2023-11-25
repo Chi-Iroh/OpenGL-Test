@@ -1,5 +1,6 @@
 SRC 	=	$(wildcard src/*.cpp)
 OBJ =   $(patsubst src/%,obj/%,$(SRC:.cpp=.o))
+DEPENDS	=	$(patsubst src/%,deps/%,$(SRC:.cpp=.d))
 
 CXX  =   g++
 DEBUG   =   -ggdb3 -DDEBUG_MODE
@@ -15,7 +16,7 @@ WIP_STANDARD_MODE=NO_WIP_STANDARD
 CXX_VERSION_ERROR	=	$(shell ./c++_latest_version.sh $(CXX) $(WIP_STANDARD_MODE) 2>&1)
 CXX_VERSION	=	$(shell ./c++_latest_version.sh $(CXX) $(WIP_STANDARD_MODE) 2> /dev/null)
 
-CXXFLAGS  +=  -Wall -Wextra -pedantic -fsigned-char -funsigned-bitfields -Wno-unused-parameter -fconcepts-diagnostics-depth=2 $(CXX_VERSION)
+CXXFLAGS  +=  -Wall -Wextra -pedantic -fsigned-char -funsigned-bitfields -Wno-unused-parameter -fconcepts-diagnostics-depth=2 -MD -MP $(CXX_VERSION)
 LDFLAGS	+=	-lGL -lglfw -lGLEW
 LD_PRELOAD	=
 
@@ -82,6 +83,8 @@ end_time:
 .PHONY: link_to_binary
 link_to_binary: init_time $(NAME) end_time
 
+-include $(DEPENDS)
+
 obj/%.o: src/%.cpp
 	@echo "$< -> $@"
 	@if [[ "$(ANALYZER)" != "" ]]; then						\
@@ -89,6 +92,7 @@ obj/%.o: src/%.cpp
 	else													\
 		$(CXX) -c $(CXXFLAGS) $< -o $@;						\
 	fi
+	@mv $(basename $@).d deps
 
 .PHONY: clean_vgcore
 clean_vgcore:
@@ -99,7 +103,7 @@ clean_vgcore:
 .PHONY: clean
 clean: clean_vgcore
 	@echo Removing temporary and object files.
-	@rm -f $(OBJ) .time .time.end
+	@rm -f $(OBJ) $(DEPENDS) .time .time.end
 
 .PHONY: fclean
 fclean: clean
