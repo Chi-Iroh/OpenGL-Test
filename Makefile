@@ -23,24 +23,24 @@ NAME    =   opengl.out
 
 .PHONY: all re
 all: CXXFLAGS += $(RELEASE)
-all: $(NAME)
+all: link_to_binary
 re: fclean all
 
 .PHONY: debug redebug
 debug: CXXFLAGS += $(DEBUG)
-debug: $(NAME)
+debug: link_to_binary
 redebug: fclean debug
 
 .PHONY: sanitize resanitize
 sanitize: CXXFLAGS += $(DEBUG) $(SANITIZE)
 sanitize: LD_PRELOAD += -lasan -lubsan
-sanitize: $(NAME)
+sanitize: link_to_binary
 resanitize: fclean sanitize
 
 .PHONY: analyzer reanalyzer
 analyzer: ANALYZER += on
 analyzer: CXXFLAGS += $(DEBUG) -fanalyzer
-analyzer: $(NAME)
+analyzer: link_to_binary
 reanalyzer: fclean analyzer
 
 .PHONY: check_version
@@ -69,6 +69,18 @@ remove_old_analyzer:
 
 $(NAME): check_version display_info remove_old_analyzer $(OBJ)
 	@$(CXX) $(OBJ) $(LD_PRELOAD) $(LDFLAGS) -o $(NAME)
+
+.PHONY: init_time
+init_time:
+	@date +%s.%N > .time
+
+.PHONY: end_time
+end_time:
+	@date +%s.%N > .time.end
+	python3 ./difftime.py
+
+.PHONY: link_to_binary
+link_to_binary: init_time $(NAME) end_time
 
 obj/%.o: src/%.cpp
 	@if [[ "$(ANALYZER)" != "" ]]; then						\
