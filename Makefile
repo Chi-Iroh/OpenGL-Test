@@ -99,7 +99,7 @@ clean_vgcore:
 .PHONY: clean
 clean: clean_vgcore
 	@echo Removing temporary and object files.
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) .time .time.end
 
 .PHONY: fclean
 fclean: clean
