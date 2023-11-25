@@ -19,7 +19,7 @@ void Square::draw(GLFWwindow* window) const {
 }
 
 void Square::setTrianglesPosition() {
-    const std::array<glm::vec3, 4> vertices{
+    [[maybe_unused]] const std::array<glm::vec3, 4> vertices{
         {  }
     };
 }
