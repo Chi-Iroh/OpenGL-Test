@@ -52,7 +52,19 @@ void createSmallerTriangle(Triangle& triangle) {
     }
 }
 
-void handleEvent(Window& window, Event& event) {
+void moveTrianglesIfArrowPressed(std::array<Triangle, 100>& triangles, Key key) {
+    const float xDelta{ (key == Key::ArrowRight) * .05f - (key == Key::ArrowLeft) * .05f };
+    const float yDelta{ (key == Key::ArrowUp) * .05f - (key == Key::ArrowDown) * .05f };
+
+    if (xDelta + yDelta == 0) {
+        return; // no key was pressed
+    }
+    for (Triangle& triangle : triangles) {
+        triangle.move(xDelta, yDelta);
+    }
+}
+
+void handleEvent(Window& window, Event& event, std::array<Triangle, 100>& triangles) {
     if (event.type == EventType::KeyEvent) {
         constexpr std::array keyTypes{
             "pressed",
@@ -77,6 +89,7 @@ void handleEvent(Window& window, Event& event) {
                     std::cout << std::format("A non-printable char (keycode {}) ", keycode);
                 }
                 std::cout << std::format("is {}.", keyTypes[i]) << std::endl;
+                moveTrianglesIfArrowPressed(triangles, key);
             }
         }
     }
@@ -101,7 +114,7 @@ int main(int argc, char* argv[]) {
             }
             window.display();
             while (window.pollEvent(event)) {
-                handleEvent(window, event);
+                handleEvent(window, event, triangles);
             }
         }
     } catch (GLException& glException) {

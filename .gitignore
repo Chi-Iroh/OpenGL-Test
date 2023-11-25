@@ -4,3 +4,4 @@
 .gdb*
 **/*.out
 *.log*
+.time*
