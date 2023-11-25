@@ -62,6 +62,11 @@ void Window::draw(const Drawable& drawable) {
 }
 
 void Window::display() {
+    if (displayClock.getElapsedTime().asMicroSeconds() < displayEpsilon) {
+        return;
+    }
+    displayClock.reset();
+
     glfwSwapBuffers(get());
 }
 
@@ -91,6 +96,11 @@ bool Window::pollEvent(Event& event) {
         [this](){ return this->pollKeyEvent(); }
     };
     std::optional<Event> optEvent{};
+
+    if (eventClock.getElapsedTime().asMicroSeconds() < eventPollEpsilon) {
+        return false;
+    }
+    eventClock.reset();
 
     glfwPollEvents();
     for (const auto& eventPoll : eventPolls) {
