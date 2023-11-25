@@ -1,15 +1,4 @@
-SRC 	=						\
-src/Colorable.cpp				\
-src/main.cpp					\
-src/CommandLineArguments.cpp	\
-src/GLDebug.cpp					\
-src/GLException.cpp				\
-src/GLUtils.cpp 				\
-src/Shader.cpp 					\
-src/Triangle.cpp				\
-src/Window.cpp					\
-src/Keyboard.cpp
-
+SRC 	=	$(wildcard src/*.cpp)
 OBJ =   $(patsubst src/%,obj/%,$(SRC:.cpp=.o))
 
 CXX  =   g++
