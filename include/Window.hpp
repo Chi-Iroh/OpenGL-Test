@@ -25,6 +25,8 @@ public:
     Window(const Window& window);
     ~Window();
 
+    Window& operator=(const Window& window) = delete;
+
     void clear(const Color::Color& color = Color::BLACK);
     void draw(const Drawable& drawable);
     void display();
