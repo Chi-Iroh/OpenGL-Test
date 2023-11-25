@@ -23,4 +23,5 @@ public:
 
     void setBackgroundColor(const Color::Color& color) override;
     void setVertices(const VerticesType& vertices);
+    void move(float x, float y, float z = 0.f) override;
 };

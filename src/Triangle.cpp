@@ -56,9 +56,20 @@ void Triangle::setBackgroundColor(const Color::Color& color) {
     linkShaders();
     backgroundColor = color;
 }
-
+#include <iostream>
 void Triangle::setVertices(const VerticesType& vertices) {
     for (unsigned i = 0; const VertexType& vertex : vertices) {
         GLVertices[i++] = glm::vec3{ vertex.x, vertex.y, vertex.z };
+    }
+}
+
+void Triangle::move(float x, float y, float z) {
+    // ça fait nimp parce que glm::vec3 attend un des coordonnées normalisées (entre 0 et 1)
+    // il faut donc que dans les classes drawable on garde des coordonnées non relatives, et qu'on les normalise dans la fenêtre
+    for (glm::vec3& vertex : GLVertices) {
+        vertex.x += x;
+        vertex.y += y;
+        vertex.z += z;
+        //std::cout << std::format("({:.2f} ; {:.2f} ; {:.2f})", vertex.x, vertex.y, vertex.z) << std::endl;
     }
 }
