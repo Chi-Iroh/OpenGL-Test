@@ -18,7 +18,8 @@ enum class KeyState {
 };
 
 static std::unordered_map<Key, KeyState, KeyHash> __keysState{
-    // { Key::Unknown, KeyState::Released }, // error when checking if pressed with glfwGetKey
+    // error when checking if pressed with glfwGetKey
+    // { Key::Unknown, KeyState::Released },
     { Key::Space, KeyState::Released },
     { Key::Apostrophe, KeyState::Released },
     // Equivalent to Key::Apostrophe, left in comment for clarity
