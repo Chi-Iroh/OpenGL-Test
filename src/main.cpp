@@ -74,7 +74,7 @@ void handleEvent(Window& window, Event& event) {
                 if (std::isprint(keycode)) {
                     std::cout << static_cast<unsigned char>(keycode) << ' ';
                 } else {
-                    std::cout << "A non-printable char ";
+                    std::cout << std::format("A non-printable char (keycode {}) ", keycode);
                 }
                 std::cout << std::format("is {}.", keyTypes[i]) << std::endl;
             }
