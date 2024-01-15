@@ -53,14 +53,30 @@ void createSmallerTriangle(Triangle& triangle) {
 }
 
 void moveTrianglesIfArrowPressed(std::array<Triangle, 100>& triangles, Key key) {
-    const float xDelta{ (key == Key::ArrowRight) * .05f - (key == Key::ArrowLeft) * .05f };
-    const float yDelta{ (key == Key::ArrowUp) * .05f - (key == Key::ArrowDown) * .05f };
+    static unsigned triangleIndex{};
+    static constexpr unsigned triangleLimit{20}; // other triangles are too small to be visible
+    static bool move_all_triangles{ true };
+
+    if (key == Key::ArrowUp) {
+        triangleIndex = (triangleIndex + 1) % triangleLimit;
+    } else if (key == Key::ArrowDown) {
+        triangleIndex = (triangleIndex - 1) % triangleLimit;
+    } else if (key == Key::Space) {
+        move_all_triangles = !move_all_triangles;
+    }
+
+    const float xDelta{ (key == Key::D) * .05f - (key == Key::A) * .05f };
+    const float yDelta{ (key == Key::W) * .05f - (key == Key::S) * .05f };
 
     if (xDelta + yDelta == 0) {
         return; // no key was pressed
     }
-    for (Triangle& triangle : triangles) {
-        triangle.move(xDelta, yDelta);
+    if (move_all_triangles) {
+        for (Triangle& triangle : triangles) {
+            triangle.move(xDelta, yDelta);
+        }
+    } else {
+        triangles[triangleIndex].move(xDelta, yDelta);
     }
 }
 

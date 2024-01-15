@@ -37,9 +37,9 @@ std::string GLDebug::getMessageType(GLenum type) {
     case GL_DEBUG_TYPE_PUSH_GROUP:
         return "Group pushing";
     case GL_DEBUG_TYPE_POP_GROUP:
-        return "group popping";
+        return "Group popping";
     case GL_DEBUG_TYPE_OTHER:
-        return "Some unknown reason, maybe you'll find one day...";
+        return "Some unknown reason, maybe you'll find some day...";
     default:
         throw GLException(std::format("Debug type '{}' not recognized.", std::to_string(type)));
     }
