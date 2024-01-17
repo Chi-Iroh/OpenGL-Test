@@ -34,7 +34,7 @@ namespace GLUtils {
     }
 
     void debugCallback(GLenum source, GLenum type, GLenum id, GLenum severity, [[maybe_unused]] GLsizei length, const GLchar* message, [[maybe_unused]] const void* userParam) {
-        std::cerr << "GL DEBUG : " << std::endl;
+        std::cerr << "GL DEBUG :" << std::endl;
         std::cerr <<  "\tSource : " << GLDebug::getMessageSource(source) << std::endl;
         std::cerr << "\tType : " << GLDebug::getMessageType(type) << std::endl;
         std::cerr << "\tSeverity : " << GLDebug::getMessageSeverity(severity) << std::endl;
